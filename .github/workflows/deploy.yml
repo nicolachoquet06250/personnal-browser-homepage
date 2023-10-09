@@ -21,7 +21,9 @@ jobs:
       - name: Install ssh
         run: \
           mkdir ~/.ssh
+          touch ~/.ssh/id_ed25519 && \
           echo "${{ secrets.SSH_PRIV_KEY }}" >> ~/.ssh/id_ed25519 && \
+          touch ~/.ssh/id_ed25519.pub && \
           echo "${{ secrets.SSH_PUB_KEY }}" >> ~/.ssh/id_ed25519.pub && \
           ssh-copy-id -i ~/.ssh/id_ed25519.pub ${{ secrets.SSH_USER }}@${{ secrets.HOST }}
 
