@@ -21,7 +21,7 @@ jobs:
       - name: Copy via ssh
         uses: appleboy/ssh-action@master
         with:
-          local: dist
+          key: ${{ secrets.SSH_PRIV_KEY }}
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.PASSWORD }}
