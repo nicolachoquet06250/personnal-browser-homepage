@@ -1,0 +1,254 @@
+.widget {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.clock {
+    flex: 1;
+}
+
+.clock h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+    text-align: center;
+}
+
+.weather {
+    margin-top: 3rem;
+
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, .2);
+    border-radius: 10px;
+}
+
+.weather > .firstLine {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.weather > .secondLine {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 40px;
+}
+
+.weather > .secondLine > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 8px;
+    margin-top: 8px;
+}
+
+.weather > .secondLine > div > div:last-of-type {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.weather > .secondLine > div:first-of-type.currentDay {
+    background-color: #303134;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 10px;
+    border-left: 1px solid rgba(255, 255, 255, .2);;
+    border-bottom: 1px solid rgba(255, 255, 255, .2);;
+}
+
+.weather > .secondLine > div:last-of-type.currentDay {
+    background-color: #303134;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 10px;
+    border-right: 1px solid rgba(255, 255, 255, .2);;
+    border-bottom: 1px solid rgba(255, 255, 255, .2);;
+}
+
+.weather > .secondLine > div.currentDay {
+    background-color: #303134;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.weatherLeftSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.weatherLeftSection > div {
+    display: flex;
+    flex-direction: row;
+}
+
+.weatherLeftSection > div > div:first-of-type {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.weatherLeftSection ul {
+    list-style: none;
+    padding-left: 15px;
+}
+
+.weatherLeftSection > * {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.weatherLeftSection h1 {
+    margin: 0;
+}
+
+.weatherLeftSection h1 > sup {
+    font-size: .5em;
+}
+
+.weatherLeftSection > .dataList > ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.weatherLeftSection .sunstateContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.weatherLeftSection .sunstateContainer .sunstate {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.weatherLeftSection .sunstateContainer .sunstate:first-child {
+    justify-content: flex-end;
+    padding-right: 4px;
+}
+
+.weatherLeftSection .sunstateContainer .sunstate:last-of-type {
+    justify-content: flex-start;
+    padding-left: 4px;
+}
+
+.weatherLeftSection .sunstateContainer .sunstate > img {
+    margin-right: 5px;
+}
+
+.weatherRightSection {
+    padding-right: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.weatherRightSection h2 {
+    margin-bottom: 0;
+}
+
+.weatherRightSection p {
+    margin: 0;
+}
+
+@media screen and (max-width: 890px) {
+    .weather {
+        margin-top: 0;
+    }
+
+    .weather > .secondLine > div > div:last-of-type {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .widget {
+        flex-direction: column;
+    }
+
+    .weather {
+        padding-top: unset;
+        width: 100%;
+    }
+
+    .clock {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .weather {
+        border-radius: 0;
+    }
+
+    .weather > .firstLine {
+        flex-direction: column;
+    }
+
+    .weather > .firstLine > .weatherRightSection {
+        align-items: center;
+    }
+
+    .weather > .secondLine {
+        flex-direction: row;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .weather > .secondLine > div {
+        width: 50%;
+        flex-direction: row;
+    }
+
+    .weather > .secondLine > div:nth-of-type(odd).currentDay {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border: none;
+    }
+
+    .weather > .secondLine > div:nth-of-type(even).currentDay {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border: none;
+    }
+
+    .weather > .secondLine > div > div {
+        flex: 1;
+    }
+
+    .weather > .secondLine > div > div > img {
+        width: 40px;
+    }
+
+    .weather > .secondLine > div > div:nth-of-type(2),
+    .weather > .secondLine > div > div:nth-of-type(3) {
+        flex: .5;
+    }
+
+    .weather > .secondLine > div > div:last-of-type {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .weather > .secondLine > div {
+        width: 100%;
+        border-radius: 0!important;
+    }
+
+    .weather > .secondLine > div > div:nth-of-type(2),
+    .weather > .secondLine > div > div:nth-of-type(3) {
+        flex: .3;
+    }
+}

@@ -1,0 +1,57 @@
+.dialog[open] {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+
+    max-width: calc(100% - 20px);
+    min-height: 50%;
+    max-height: calc(100% - 20px);
+
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.dialog[open] > header {
+    display: flex;
+    justify-content: flex-end;
+
+    width: 100%;
+    height: 40px;
+}
+
+.dialog[open] > header.headerWithTitle {
+    justify-content: space-between;
+}
+
+.dialog[open] > header.headerWithTitle > div {
+    width: calc(100% - 40px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog[open] > header > button {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background: transparent;
+    color: red;
+    border: none;
+    font-size: 20px;
+}
+
+.dialog[open] > main {
+    width: 100%;
+    height: calc(100vh - 40px);
+
+    max-height: calc(100% - 40px);
+
+    overflow-y: auto;
+
+    padding: 10px;
+}
