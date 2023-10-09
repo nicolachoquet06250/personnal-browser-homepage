@@ -28,6 +28,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.PASSWORD }}
           privateKey: ${{ secrets.SSH_PRIV_KEY }}
+          passphrase: ${{ secrets.SSH_PRIV_KEY_PASSPHRASE }}
 #          host: ${{ secrets.HOST }}
 #          username: ${{ secrets.SSH_USER }}
 #          password: ${{ secrets.PASSWORD }}
