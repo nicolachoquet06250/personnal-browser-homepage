@@ -16,6 +16,11 @@ jobs:
       - name: Install dependences
         run: yarn
 
+      - name: Get remote env file
+        run: \
+          sudo apt install wget && \
+          wget ${{ ENV_FILE_URL }} .env
+
       - name: Build app
         run: yarn build
 
