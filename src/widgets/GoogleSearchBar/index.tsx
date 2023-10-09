@@ -104,18 +104,3 @@ export default function GoogleSearchBar() {
             </button>)}
     </section>);
 }
-
-// https://customsearch.googleapis.com/customsearch/v1
-// key=AIzaSyC_FgpObuiytEMNPZRwl37w8qe0ho9MFTQ
-// title=Google%20Custom%20Search%20-%20Le%20codeur%20de%20nuit
-// totalResults=146000
-// searchTerms=Le%20codeur%20de%20nuit
-// count=10
-// startIndex=11
-// inputEncoding=utf8
-// outputEncoding=utf8
-// safe=off
-// cx=83442d841f63e4fcf
-// filter=1
-// disableCnTwTranslation=1
-// hl=fr-FR
