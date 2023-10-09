@@ -12,6 +12,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Install dependences
+        run: yarn
+
       - name: Build app
         run: yarn build
 
