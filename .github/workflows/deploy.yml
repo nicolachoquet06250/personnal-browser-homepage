@@ -18,7 +18,7 @@ jobs:
 
       - name: Get remote env file
         run: \
-          sudo apt install wget && \
+          apt install wget && \
           wget ${{ secrets.ENV_FILE_URL }} .env
 
       - name: Build app
