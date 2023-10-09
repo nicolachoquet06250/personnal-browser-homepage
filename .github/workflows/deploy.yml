@@ -17,9 +17,7 @@ jobs:
         run: yarn
 
       - name: Get remote env file
-        run: \
-          apt install wget && \
-          wget ${{ secrets.ENV_FILE_URL }} .env
+        run: wget ${{ secrets.ENV_FILE_URL }} .env
 
       - name: Build app
         run: yarn build
