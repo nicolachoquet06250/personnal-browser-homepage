@@ -20,8 +20,8 @@ jobs:
 
       - name: Install ssh
         run: sudo mkdir ~/.ssh
-      - run: echo "${{ secrets.SSH_PRIV_KEY }}" >> ~/.ssh/id_ed25519
-      - run: echo "${{ secrets.SSH_PUB_KEY }}" >> ~/.ssh/id_ed25519.pub
+      - run: sudo echo "${{ secrets.SSH_PRIV_KEY }}" >> ~/.ssh/id_ed25519
+      - run: sudo echo "${{ secrets.SSH_PUB_KEY }}" >> ~/.ssh/id_ed25519.pub
       - run: ssh-copy-id -i ~/.ssh/id_ed25519.pub ${{ secrets.SSH_USER }}@${{ secrets.HOST }}
 
       - name: Copy via ssh
