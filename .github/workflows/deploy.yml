@@ -17,7 +17,7 @@ jobs:
         run: yarn
 
       - name: Get remote env file
-        run: wget ${{ secrets.ENV_FILE_URL }} && mv env-prod.txt .env
+        run: bash ./scripts/deploy.sh pull-env -u "${{ secrets.ENV_FILE_URL }}"
 
       - name: Build app
         run: yarn build
