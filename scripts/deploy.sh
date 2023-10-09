@@ -49,5 +49,5 @@ commit_id="${values[0]}"
 
 git commit -m "$message";
 git tag -a "v${tag_parts[0]}.${tag_parts[1]}" "$commit_id" -m "$message";
-git push --tags;
+git push origin --tags;
 
