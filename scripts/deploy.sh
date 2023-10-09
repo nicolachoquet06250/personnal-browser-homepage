@@ -47,7 +47,6 @@ IFS=' '
 read -ra values <<< "$first_log"
 commit_id="${values[0]}"
 
-git add *;
 git commit -m "$message";
 git tag -a "v${tag_parts[0]}.${tag_parts[1]}" "$commit_id" -m "$message";
 git commit --tags;

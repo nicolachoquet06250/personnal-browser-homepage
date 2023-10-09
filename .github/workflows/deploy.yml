@@ -19,10 +19,11 @@ jobs:
         run: yarn build
 
       - name: Copy via ssh
-        uses: garygrossgarten/github-action-scp@release
+        uses: appleboy/ssh-action@master
         with:
           local: dist
-          remote: /home/nicolas-choquet/www/browser-homepage
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.PASSWORD }}
+          source: dist/*
+          target: /home/nicolas-choquet/www/browser-homepage
