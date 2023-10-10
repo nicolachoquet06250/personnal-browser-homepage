@@ -11,24 +11,27 @@ if [[ "$1" == "push" ]];then
             type="$5"
         fi
     else
-        message="$(git log -1 --format=%s)"
-
         if [[ "$2" == "-t" ]] || [[ "$2" == "--type" ]];then
             type="$3"
         fi
+
+        message="$(git log -1 --format=%s)"
+        if [[ "$4" == "-m" ]] || [[ "$4" == "--message" ]];then
+            message="$5"
+        fi
     fi
 
-    if [[ type == "" ]];then
-        type="feature"
+    if [[ $type == "" ]];then
+        type="feature";
 
-        IFS=':'
-        read -ra message_parts <<< "$message"
-        IFS=''
+        IFS=':';
+        read -ra message_parts <<< "$message";
+        IFS='';
 
         if [[ "${message_parts[0]}" == "Feature" ]] || [[ "${message_parts[0]}" == "feature" ]];then
-            type="feature"
+            type="feature";
         elif [[ "${message_parts[0]}" == "Fix" ]] || [[ "${message_parts[0]}" == "Bug" ]] || [[ "${message_parts[0]}" == "fix" ]] || [[ "${message_parts[0]}" == "bug" ]];then
-            type="fix"
+            type="fix";
         fi
     fi
 
@@ -63,11 +66,18 @@ if [[ "$1" == "push" ]];then
     commit_id="${values[0]}"
 
 #     run git commands
-    [[ "${DEBUG}" == "1" ]] && command="echo" || command="git";
+    [[ "${DEBUG}" == "1" ]] && command="echo git" || command="git";
 
-    $command commit -m "$message";
+    if [[ $type == "fix" ]];then
+        message="Fix: $message";
+    else
+        message="Feature: $message";
+    fi
+
+    $command commit -am "$message";
     $command tag -a "v${tag_parts[0]}.${tag_parts[1]}" "$commit_id" -m "$message";
-    $command push origin --tags;
+#     $command push origin --tags;
+    $command -c credential.helper= -c core.quotepath=false -c log.showSignature=false push --progress --porcelain origin refs/heads/main:main --tags
 elif [[ "$1" == "pull-env" ]];then
     if [[ "$2" != "-u" ]] && [[ "$2" != "--url" ]];then
         echo "Erreur : L'url du fichier de variables d'environnements est obligatoire"
