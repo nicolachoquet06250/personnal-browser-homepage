@@ -162,14 +162,16 @@ elif [[ "$1" == "push-env" ]];then
     local_file_name=".env.local"
 
     if [[ "$ssh_password" == "" ]];then
-        scp "./${local_file_name}" "${ssh_address}:/home/nicolas-choquet/www/env-files/${project_name}/${remote_file_name}"
+        scp "./${local_file_name}" "${ssh_address}:/home/nicolas-choquet/www/env-files/files/${project_name}/${remote_file_name}";
+        ssh "${ssh_address}" "cd /home/nicolas-choquet/www/env-files && git add * && git commit -am \"Add or Update file env ${remote_file_name} in ${project_name} project\" && git push origin"
     else
-        sshpass -p "$ssh_password" scp "./${local_file_name}" "${ssh_address}:/home/nicolas-choquet/www/env-files/${project_name}/${remote_file_name}"
+        sshpass -p "$ssh_password" scp "./${local_file_name}" "${ssh_address}:/home/nicolas-choquet/www/env-files/files/${project_name}/${remote_file_name}"
+        sshpass -p "$ssh_password" ssh "${ssh_address}" "cd /home/nicolas-choquet/www/env-files && git add * && git commit -am \"Add or Update file env ${remote_file_name} in ${project_name} project\" && git push origin"
     fi
 elif [[ "$1" == "" ]] || [[ "$1" == "help" ]];then
     echo "bash ${pwd}/scripts/deploy.sh push [-m|--message \"commit message\"=\"last commit message\"] [-t|--type \"fix|feature\"=\"feature\"]";
     echo "bash ${pwd}/scripts/deploy.sh pull-env -u|--url \"remote env file url\"";
-    echo "bash ${pwd}/scripts/deploy.sh push-env -s|--ssh \"ssh address\" -p|--project \"project name\" [-e|--environment \"preprod|prod\"=""] [-rfn|--remote-file-name \"remote file name\"="env-\$environment"] [-pass|--password \"ssh password if has\"]";
+    echo "bash ${pwd}/scripts/deploy.sh push-env -s|--ssh \"ssh address\" -p|--project \"project name\" [-e|--environment \"preprod|prod\"=""] [-rfn|--remote-file-name \"remote file name\"="env-\$environment.txt"] [-pass|--password \"ssh password if has\"]";
 else
     echo "Erreur : subcommand \"$1\" not found";
     2>&1
