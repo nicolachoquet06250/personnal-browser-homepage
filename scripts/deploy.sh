@@ -177,5 +177,3 @@ else
     2>&1
     exit;
 fi
-# deploy.sh push-env -s "nicolas-choquet@ssh-nicolas-choquet.alwaysdata.net"
-
