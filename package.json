@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "deploy": "scp -r ./dist/* nicolas-choquet@ssh-nicolas-choquet.alwaysdata.net:/home/nicolas-choquet/www/browser-homepage",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "preinstall": "ln -s $(pwd)/.github/hooks/post-push $(pwd)/.git/hooks/post-push"
   },
   "dependencies": {
     "@types/react-syntax-highlighter": "^15.5.7",

@@ -1,18 +1,35 @@
 #!/bin/bash
 
+[[ "${DEBUG}" == "" ]] && DEBUG="0";
+
 if [[ "$1" == "push" ]];then
-    if [[ "$2" != "-m" ]] && [[ "$2" != "--message" ]];then
-        echo "Erreur : Le message est obligatoire"
-        2>&1
-        exit;
+    type=""
+    if [[ "$2" == "-m" ]] || [[ "$2" == "--message" ]];then
+        message="$3"
+
+        if [[ "$4" == "-t" ]] || [[ "$4" == "--type" ]];then
+            type="$5"
+        fi
+    else
+        message="$(git log -1 --format=%s)"
+
+        if [[ "$2" == "-t" ]] || [[ "$2" == "--type" ]];then
+            type="$3"
+        fi
     fi
 
-    message="$3"
-
-    if [[ "$4" == "-t" ]] || [[ "$4" == "--type" ]];then
-        type="$5"
-    else
+    if [[ type == "" ]];then
         type="feature"
+
+        IFS=':'
+        read -ra message_parts <<< "$message"
+        IFS=''
+
+        if [[ "${message_parts[0]}" == "Feature" ]] || [[ "${message_parts[0]}" == "feature" ]];then
+            type="feature"
+        elif [[ "${message_parts[0]}" == "Fix" ]] || [[ "${message_parts[0]}" == "Bug" ]] || [[ "${message_parts[0]}" == "fix" ]] || [[ "${message_parts[0]}" == "bug" ]];then
+            type="fix"
+        fi
     fi
 
 #     get all git tags
@@ -46,9 +63,11 @@ if [[ "$1" == "push" ]];then
     commit_id="${values[0]}"
 
 #     run git commands
-    git commit -m "$message";
-    git tag -a "v${tag_parts[0]}.${tag_parts[1]}" "$commit_id" -m "$message";
-    git push origin --tags;
+    [[ "${DEBUG}" == "1" ]] && command="echo" || command="git";
+
+    $command commit -m "$message";
+    $command tag -a "v${tag_parts[0]}.${tag_parts[1]}" "$commit_id" -m "$message";
+    $command push origin --tags;
 elif [[ "$1" == "pull-env" ]];then
     if [[ "$2" != "-u" ]] && [[ "$2" != "--url" ]];then
         echo "Erreur : L'url du fichier de variables d'environnements est obligatoire"
@@ -126,7 +145,7 @@ elif [[ "$1" == "push-env" ]];then
         sshpass -p "$ssh_password" scp "./${local_file_name}" "${ssh_address}:/home/nicolas-choquet/www/env-files/${project_name}/${remote_file_name}"
     fi
 elif [[ "$1" == "" ]] || [[ "$1" == "help" ]];then
-    echo "bash ${pwd}/scripts/deploy.sh push -m|--message \"commit message\" [-t|--type \"fix|feature\"=feature]";
+    echo "bash ${pwd}/scripts/deploy.sh push [-m|--message \"commit message\"=\"last commit message\"] [-t|--type \"fix|feature\"=\"feature\"]";
     echo "bash ${pwd}/scripts/deploy.sh pull-env -u|--url \"remote env file url\"";
     echo "bash ${pwd}/scripts/deploy.sh push-env -s|--ssh \"ssh address\" -p|--project \"project name\" [-e|--environment \"preprod|prod\"=""] [-rfn|--remote-file-name \"remote file name\"="env-\$environment"] [-pass|--password \"ssh password if has\"]";
 else
