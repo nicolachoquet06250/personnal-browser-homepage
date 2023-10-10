@@ -33,6 +33,10 @@ if [[ "$1" == "push" ]];then
         elif [[ "${message_parts[0]}" == "Fix" ]] || [[ "${message_parts[0]}" == "Bug" ]] || [[ "${message_parts[0]}" == "fix" ]] || [[ "${message_parts[0]}" == "bug" ]];then
             type="fix";
         fi
+    else
+        IFS=':';
+        read -ra message_parts <<< "$message";
+        IFS='';
     fi
 
 #     get all git tags
@@ -68,10 +72,18 @@ if [[ "$1" == "push" ]];then
 #     run git commands
     [[ "${DEBUG}" == "1" ]] && command="echo git" || command="git";
 
-    if [[ $type == "fix" ]];then
-        message="Fix: $message";
-    else
-        message="Feature: $message";
+    if [ "${#message_parts[*]}" -le "1" ] && \
+        [[ "${message_parts[0]}" != "Fix" ]] && \
+        [[ "${message_parts[0]}" != "Bug" ]] && \
+        [[ "${message_parts[0]}" != "Feature" ]] && \
+        [[ "${message_parts[0]}" != "fix" ]] && \
+        [[ "${message_parts[0]}" != "bug" ]] && \
+        [[ "${message_parts[0]}" != "feature" ]];then
+        if [[ $type == "fix" ]];then
+            message="Fix: $message";
+        else
+            message="Feature: $message";
+        fi
     fi
 
     $command commit -am "$message";
