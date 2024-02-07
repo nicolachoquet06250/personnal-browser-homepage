@@ -102,7 +102,7 @@ elif [[ "$1" == "pull-env" ]];then
     IFS='/';
     read -ra values <<< "$split_env_file_url";
     remote_file_name="";
-    for v in ${values[@]}
+    for v in "${values[@]}"
     do
         remote_file_name="$v";
     done
@@ -144,8 +144,8 @@ elif [[ "$1" == "push-env" ]];then
             remote_file_name="env-${environment}.txt"
         fi
 
-        if [[ "$10" != "-pass" ]] && [[ "$10" == "--password" ]];then
-            ssh_password="$11"
+        if [[ "${10}" != "-pass" ]] && [[ "${10}" == "--password" ]];then
+            ssh_password="${11}"
         fi
     else
         if [[ "$6" == "-rfn" ]] || [[ "$6" == "--remote-file-name" ]];then
